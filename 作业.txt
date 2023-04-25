@@ -55,3 +55,4 @@ ddb.plotPie('score', [60, 90, 100])
 （4）为DictDatabase增加一个函数plotPoints3D，该函数接3个或4个参数。3个参数时，是三个属性名，用这三个属性依次作为x、y、z坐标，绘制三维散点图。4个参数时，前3个属性代表坐标，用第4个属性对应的值来涂颜色。例如，数据库里存着各种型号手机的CPU频率、屏幕大小、电池寿命和价格等数据，下面的第一行代码分别以CPU频率、屏幕大小、待机时间作为坐标，把所有条目对应的点绘制在三维坐标系里。下面的第二行代码则在第一行的基础上，将所有点按照价格涂色。
 ddb.plotPoints3D('cpuFreq', 'screenSize', 'batteryLife')
 ddb.plotPoints3D('cpuFreq', 'screenSize', 'batteryLife', 'price')
+暂时就这些
