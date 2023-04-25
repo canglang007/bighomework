@@ -1,0 +1,57 @@
+﻿用Python编写一个类，用于储存一个或多个dict对象，并能够实现简易的“增、删、改、查”操作。然后写一段简易的主程序测试一下各项功能。
+（1）这个类应该能够像下面这样使用（假设这个类叫DictDatabase）：
+首先创建一个这个类的实例：ddb = DictDatabase()
+新增元素：ddb.add({'id': '20190001', 'name': '张三', 'age': 19})
+删除元素：ddb.delete('age', 19)
+更新元素：ddb.update('id', '20190001', {'name': '李四'})
+替换元素：ddb.replace('id, '20190001', {'id': '20190002', 'name': '李四', 'age': 18})
+查找元素：result = ddb.find('age', 19)
+元素个数：num = ddb.count()
+（2）能够将储存的数据保存到文件里，也能从文件中读入之前保存的数据（读入时原有的数据清空），自行选用合适的文件格式和读写方式。例如，先创建了一个DictDatabase的实例：
+ddb = DictDatabase()
+然后我们可以用如下方式让它将已储存的数据写入文件，或从文件中读入先前保存的数据：
+ddb.save('文件名')
+ddb.load('文件名')
+
+
+
+
+
+
+
+
+
+
+
+在上一次的作业“文件里的dict数据库”的基础上，增添数据统计功能，利用numpy来实现。假设你写的类是DictDatabase，假设你创建了一个该类的实例ddb，具体要求如下：
+（1）给DictDatabase增加getValues函数，用于获取数据库中所有dict的某一个属性的值。以下是调用方式示例：
+values = ddb.getValues('weight')
+该函数的第一个参数是要获取的key，返回值是一个numpy的array，里面包含了数据库里所有记录中的该key的值。不含有该key的记录不要出现在结果里。
+（2）给上述getValues函数增加一个可选的参数，名字叫orderBy，用于指明是否要根据另一个属性的值来排序。只需要对int和float类型排序即可。例如：
+values = ddb.getValues('weight', orderBy='height')
+意思是“获取所有weight属性的值，并按照height属性的值从小到大排序”，返回的结果是一个n*2的numpy的array，其中第0列是要查询的属性的值们（此例中是weight），第1列是排序所用的属性的值（此例中是height）。不含有所查询的属性的记录不要出现在结果里。不含有orderBy属性的记录一律放在最后面，不参与排序。
+（3）给DictDatabase增加一个getStat函数，用于统计所有dict中某一个属性的最小值、最大值、平均值，只需要对int和float类型作此处理，int类型的平均值也需要是float。例如：
+stat = ddb.getStat('weight')
+该函数需要返回一个dict，其中包含min、max、avg三个属性，其值分别是被统计的属性（此例中是weight）的最小值、最大值、平均值。不含有指定属性的记录不参与统计。
+
+
+
+
+
+
+
+
+
+
+
+
+在上一次的作业“带统计功能的dict数据库”的基础上，增加如下四种画图功能。假设你编写的类叫做DictDatabase，创建的实例叫做ddb。
+（1）为DictDatabase增加一个函数plotLine，指定两个属性（属性对应的值都是数值）分别作为横轴和纵轴，绘制曲线图。例如，数据库里存有一年内每天的气温，下面的代码将画出气温随天数的变化曲线。
+ddb.plotLine('dayOfYear', 'temperature')
+（2）为DictDatabase增加一个函数plotBars，指定两个属性（属性对应的值分别为字符串和数值），绘制柱状图。例如，数据库里存有每个国家的名字和人口数量，下面的代码将绘制柱状图，反映每个国家人口数量的多少。
+ddb.plotBars('country', 'population')
+（3）为DictDatabase增加一个函数plotPie，第一个参数是一个属性（属性对应的值是数值），第二个参数是一个list，其中代表了统计区段的分隔点，绘制饼状图，反映该属性的值位于每个区段的百分比。例如，数据库里存着每位同学的成绩分数，下面的代码将绘制饼状图，里面的扇形分别代表分数位于(-∞,60)、[60,90)、[90,100)、[100,+∞)的人数。注意：画出来的饼状图的扇形块数应该是第二个参数list的长度+1。
+ddb.plotPie('score', [60, 90, 100])
+（4）为DictDatabase增加一个函数plotPoints3D，该函数接3个或4个参数。3个参数时，是三个属性名，用这三个属性依次作为x、y、z坐标，绘制三维散点图。4个参数时，前3个属性代表坐标，用第4个属性对应的值来涂颜色。例如，数据库里存着各种型号手机的CPU频率、屏幕大小、电池寿命和价格等数据，下面的第一行代码分别以CPU频率、屏幕大小、待机时间作为坐标，把所有条目对应的点绘制在三维坐标系里。下面的第二行代码则在第一行的基础上，将所有点按照价格涂色。
+ddb.plotPoints3D('cpuFreq', 'screenSize', 'batteryLife')
+ddb.plotPoints3D('cpuFreq', 'screenSize', 'batteryLife', 'price')
